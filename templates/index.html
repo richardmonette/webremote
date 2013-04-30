@@ -1,0 +1,28 @@
+<!doctype html>
+<title>Web Remote</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"/>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.play_link').each(function(index) {
+			$(this).click(function() {
+				$.post('http://192.168.0.30:5000/play/', {'filename':$(this).attr('id')});
+			});		
+		});
+		$('.stop_link').each(function(index) {
+			$(this).click(function() {
+				$.post('http://192.168.0.30:5000/stop/');	
+			});
+		});
+	});
+</script>
+
+<div class="moviebutton">
+	<a class="stop_link" href="#">Stop</a>
+</div>
+
+{% for filename in filenames %}
+	<div class="moviebutton">
+		<a id="{{filename}}" class="play_link" href="#">{{ filename }}</a>
+	</div>
+{% endfor %}
